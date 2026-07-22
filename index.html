@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tansu Ahmed — Coastal Hydrodynamics &amp; Numerical Modeling</title>
+<meta name="description" content="Tansu Ahmed — Oceanography researcher specializing in Delft3D-FM tidal modeling, sea-level rise, and coastal process studies in the Bay of Bengal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1F33;
+    --deep:#123C5C;
+    --teal:#1F8A7A;
+    --teal-bright:#2FB3A0;
+    --rust:#B5502E;
+    --paper:#EEF2F1;
+    --paper-2:#F8FAF9;
+    --text:#16232E;
+    --muted:#5B6B76;
+    --line:#D8DEDD;
+    --line-dark:rgba(255,255,255,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper-2);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--teal-bright);color:var(--ink);}
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal-bright);outline-offset:3px;}
+
+  .wrap{max-width:800px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,31,51,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;
+    max-width:800px;
+  }
+  nav .brand{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;letter-spacing:0.06em;
+    color:#EAF3F1;
+    text-decoration:none;
+  }
+  nav .links{display:flex;gap:22px;list-style:none;margin:0;padding:0;}
+  nav .links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:0.04em;
+    color:#B9C9CB;text-decoration:none;
+    text-transform:uppercase;
+  }
+  nav .links a:hover{color:#fff;}
+  @media (max-width:600px){
+    nav .links{gap:14px;}
+    nav .links a{font-size:11px;}
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:linear-gradient(180deg,var(--ink) 0%, var(--deep) 100%);
+    color:#EAF3F1;
+    position:relative;
+    overflow:hidden;
+    padding:64px 0 0;
+  }
+  header.hero .wrap{position:relative;z-index:2;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--teal-bright);
+    margin:0 0 18px;
+  }
+  h1.name{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(2.4rem,6vw,3.6rem);
+    line-height:1.05;
+    margin:0 0 14px;
+    color:#fff;
+  }
+  .tagline{
+    font-size:17px;
+    color:#C7D6D6;
+    max-width:520px;
+    margin:0 0 28px;
+  }
+  .contact-row{
+    display:flex;flex-wrap:wrap;gap:10px 22px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#B9C9CB;
+    padding-bottom:38px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .contact-row a{text-decoration:none;border-bottom:1px solid transparent;}
+  .contact-row a:hover{border-bottom-color:var(--teal-bright);color:#fff;}
+
+  /* Tidal curve signature */
+  .tide-band{position:relative;height:150px;margin-top:8px;}
+  .tide-band svg{display:block;width:100%;height:100%;}
+  .tide-path{
+    fill:none;stroke:var(--teal-bright);stroke-width:2;
+    stroke-dasharray:1400;stroke-dashoffset:1400;
+    animation:draw 2.4s ease-out forwards 0.3s;
+    opacity:0.9;
+  }
+  .tide-path.secondary{stroke:#4C7A8C;stroke-width:1.3;opacity:0.55;animation-delay:0.6s;}
+  .tide-labels{
+    position:absolute;inset:0;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E97A0;
+  }
+  .tide-labels span{position:absolute;letter-spacing:0.06em;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @media (prefers-reduced-motion:reduce){
+    .tide-path{animation:none;stroke-dashoffset:0;}
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:52px 0;}
+  section.alt{background:var(--paper);}
+  .section-head{
+    display:flex;align-items:baseline;gap:14px;
+    margin-bottom:22px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--teal);
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.5rem;
+    letter-spacing:0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  .rule{border:none;border-top:1px solid var(--line);margin:0 0 26px;}
+
+  .profile-text{font-size:15.5px;color:#2B3944;max-width:680px;}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:9px 10px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--deep);
+    background:#fff;border:1px solid var(--line);
+    padding:6px 12px;border-radius:3px;
+  }
+
+  /* entries */
+  .entry{margin-bottom:26px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-top{
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;
+    gap:6px 16px;margin-bottom:2px;
+  }
+  .entry-title{font-weight:600;font-size:16px;color:var(--ink);}
+  .entry-date{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--teal);
+    white-space:nowrap;
+  }
+  .entry-sub{font-size:13.5px;color:var(--muted);font-style:italic;margin-bottom:8px;}
+  ul.bullets{margin:0;padding-left:18px;}
+  ul.bullets li{margin-bottom:6px;font-size:14.5px;color:#2B3944;}
+  ul.bullets li:last-child{margin-bottom:0;}
+
+  .skill-score{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;font-weight:500;
+    background:rgba(181,80,46,0.09);
+    color:var(--rust);
+    border:1px solid rgba(181,80,46,0.25);
+    padding:1px 7px;border-radius:3px;
+  }
+
+  /* tech table */
+  .tech-table{width:100%;border-collapse:collapse;font-size:14px;}
+  .tech-table tr{border-top:1px solid var(--line);}
+  .tech-table tr:first-child{border-top:none;}
+  .tech-table td{padding:11px 0;vertical-align:top;}
+  .tech-table td:first-child{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;color:var(--deep);
+    width:170px;padding-right:16px;font-size:12.5px;
+  }
+  .tech-table td:last-child{color:#2B3944;}
+
+  /* publications */
+  .pub{
+    font-size:14.5px;color:#2B3944;
+    padding:16px 18px;background:#fff;border:1px solid var(--line);border-radius:4px;
+  }
+  .pub .pub-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);
+    text-transform:uppercase;letter-spacing:0.06em;display:block;margin-bottom:6px;
+  }
+
+  .field-text{font-size:14.5px;color:#2B3944;}
+
+  footer{
+    background:var(--ink);color:#B9C9CB;
+    padding:40px 0 50px;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;
+  }
+  footer a{color:#EAF3F1;text-decoration:none;border-bottom:1px solid var(--teal);}
+  footer .foot-top{color:#EAF3F1;font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:10px;}
+
+  @media (max-width:600px){
+    section{padding:38px 0;}
+    .entry-top{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">TANSU AHMED</a>
+    <ul class="links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Coastal Hydrodynamics · Model Calibration &amp; Validation · Delft3D-FM · NST Fellow</p>
+    <h1 class="name">Tansu Ahmed</h1>
+    <p class="tagline">Oceanography researcher configuring and validating Delft3D-FM tidal models for the Bangladesh coast — extending toward sea-level rise scenarios in the Bay of Bengal.</p>
+    <div class="contact-row">
+      <span>Chattogram, Bangladesh</span>
+      <a href="mailto:tansu.ahmed.ocean.fmsf@gmail.com">tansu.ahmed.ocean.fmsf@gmail.com</a>
+      <a href="https://www.linkedin.com/in/tansu-ahmed" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/TansuAhmed" target="_blank" rel="noopener">GitHub</a>
+      <span>NST Research Fellow · 2024–2025</span>
+    </div>
+  </div>
+  <div class="tide-band" aria-hidden="true">
+    <svg viewBox="0 0 800 150" preserveAspectRatio="none">
+      <path class="tide-path secondary" d="M0,90 C40,60 80,120 120,90 C160,60 200,120 240,90 C280,60 320,120 360,90 C400,60 440,120 480,90 C520,60 560,120 600,90 C640,60 680,120 720,90 C760,60 800,110 800,90"/>
+      <path class="tide-path" d="M0,75 C50,20 100,130 150,75 C200,20 250,130 300,75 C350,20 400,130 450,75 C500,20 550,130 600,75 C650,20 700,130 750,75 C780,45 800,90 800,75"/>
+    </svg>
+    <div class="tide-labels">
+      <span style="left:6%; top:8px;">M2</span>
+      <span style="left:38%; top:100px;">S2</span>
+      <span style="left:70%; top:30px;">K1</span>
+    </div>
+  </div>
+</header>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>Research Profile</h2></div>
+    <hr class="rule">
+    <p class="profile-text">Oceanography graduate with research experience in Delft3D-FM hydrodynamic modeling, tidal dynamics, and coastal process studies. Experienced in configuring, calibrating, and evaluating tidal circulation models along the Bangladesh coast. Background executing coastal fieldwork, processing satellite remote sensing datasets, and analyzing data for environmental reporting. NST Research Fellow with experience in applied coastal modeling and data-driven environmental analysis. Driven to apply data-focused coastal resilience and climate adaptation solutions within the development, environmental conservation, and consultancy sectors.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>Research Interests</h2></div>
+    <hr class="rule">
+    <div class="chip-row">
+      <span class="chip">Coastal hydrodynamics &amp; tidal dynamics in deltaic systems</span>
+      <span class="chip">Sea-level rise &amp; tidal amplification</span>
+      <span class="chip">Delft3D-FM / CROCO process-based modeling</span>
+      <span class="chip">Coastal flood-risk under climate scenarios</span>
+      <span class="chip">Ocean remote sensing &amp; model validation</span>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Education</h2></div>
+    <hr class="rule">
+
+    <div class="entry">
+      <div class="entry-top">
+        <span class="entry-title">M.Sc. in Oceanography — CGPA 3.69 / 4.00</span>
+        <span class="entry-date">Conferred June 2025</span>
+      </div>
+      <div class="entry-sub">University of Chittagong, Bangladesh · Medium of Instruction: English · NST Fellowship-funded</div>
+      <ul class="bullets">
+        <li>Thesis: <em>Numerical Simulation of Tidal Dynamics in the Bangladesh Coast of the Bay of Bengal with Delft3D FM</em></li>
+        <li>Configured and calibrated a Delft3D-FM flexible-mesh model of the full Bangladesh coast; model <span class="skill-score">skill score r² &gt; 0.93</span> against 2 tidal gauge stations</li>
+        <li>Thesis currently being extended toward sea-level rise scenarios (+0.25–1.0 m): ongoing analysis of M2, S2, K1 constituent amplification and deltaic inundation; manuscript in preparation</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-top">
+        <span class="entry-title">B.Sc. in Oceanography — CGPA 3.53 / 4.00</span>
+        <span class="entry-date">Completed 2020 · Conferred Feb 2024</span>
+      </div>
+      <div class="entry-sub">University of Chittagong, Bangladesh · Medium of Instruction: English</div>
+      <ul class="bullets">
+        <li>Terminal Paper: <em>Modeling Tidal Phenomena — A Comprehensive Literature Review of Numerical Simulation Approaches</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Research Experience</h2></div>
+    <hr class="rule">
+
+    <div class="entry">
+      <div class="entry-top">
+        <span class="entry-title">Research Assistant — Coastal Ocean Observation &amp; Prediction Laboratory</span>
+        <span class="entry-date">Jan 2020 – Present</span>
+      </div>
+      <div class="entry-sub">Department of Oceanography, University of Chittagong, Bangladesh</div>
+      <ul class="bullets">
+        <li>Configured, calibrated and validated a Delft3D-FM flexible-mesh hydrodynamic model of the Bangladesh coast of the Bay of Bengal; achieved tidal circulation <span class="skill-score">skill score r² &gt; 0.93</span> against 2 in-situ tidal gauge stations</li>
+        <li>Extending validated tidal model to sea-level rise scenarios (+0.25–1.0 m); ongoing analysis of M2, S2 and K1 constituent amplification and inundation extent across the low-lying Bangladesh deltaic coast</li>
+        <li>Processed Copernicus CMEMS satellite and observational data for coastal circulation, turbidity and water quality monitoring</li>
+        <li>Applied ArcGIS Pro / QGIS for coastal habitat mapping, bathymetric data integration and marine zone delineation</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-top">
+        <span class="entry-title">NST Research Fellow</span>
+        <span class="entry-date">2024 – 2025</span>
+      </div>
+      <div class="entry-sub">National Science and Technology Fellowship, Ministry of Science and Technology, Government of Bangladesh</div>
+      <ul class="bullets">
+        <li>Competitive national fellowship; one of a limited national cohort in earth and ocean sciences</li>
+        <li>Fellowship outputs include validated tidal model and ongoing sea-level rise scenario analysis; manuscript in preparation targeting <em>Estuarine, Coastal and Shelf Science</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">05</span><h2>Publications</h2></div>
+    <hr class="rule">
+    <div class="pub">
+      <span class="pub-tag">Published · MDPI, ESCI-indexed (Scopus / WoS)</span>
+      Uddin, M. M., Schneider, P., Deb, D., Hasan, M., Ahmed, T., et al. <em>Impacts, Diversity, and Resilience of a Coastal Water Small-Scale Fisheries Nexus during COVID-19: A Case Study in Bangladesh.</em> Water, 14(8), 1269 (2022). doi:10.3390/w14081269
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">06</span><h2>Technical Competencies</h2></div>
+    <hr class="rule">
+    <table class="tech-table">
+      <tr><td>Hydrodynamic Modelling</td><td>Delft3D-FM (D-Flow FM, D-Wave, D-Morphology, D-Water Quality); CROCO; tidal / storm-surge / SLR scenario simulation; skill-score validation</td></tr>
+      <tr><td>Remote Sensing &amp; GIS</td><td>ArcGIS Pro, QGIS, ENVI; Copernicus CMEMS operational products; ocean colour remote sensing (SatCO2 advanced training)</td></tr>
+      <tr><td>Programming &amp; Data</td><td>Python (NumPy, Pandas, Matplotlib, SciPy); NetCDF / HDF5 oceanographic data processing</td></tr>
+      <tr><td>Field Methods</td><td>Water and sediment sampling; tidal gauge deployment; hydrographic survey; laboratory analysis</td></tr>
+      <tr><td>Languages</td><td>English (advanced, professional) · Bengali (native)</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">07</span><h2>Workshop &amp; Training</h2></div>
+    <hr class="rule">
+    <ul class="bullets">
+      <li><strong>IHE Delft Institute for Water Education (UNESCO-IHE), Netherlands</strong> — Introduction to Delft3D Modeling (2024)</li>
+      <li><strong>IQAC, University of Chittagong</strong> — CROCO Coastal Ocean Modeling Workshop (2024)</li>
+      <li><strong>CMEMS / Mercator Ocean International, European Union</strong> — Copernicus Marine Service: Marine Data for the Arctic Ocean (2024)</li>
+      <li><strong>Ocean Colour Remote Sensing Advanced Training</strong> — SatCO2 (2024)</li>
+      <li><strong>National Oceanographic and Maritime Institute (NOAMI), Bangladesh</strong> — Data Science &amp; Machine Learning with Python (2021)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">08</span><h2>Field Experience</h2></div>
+    <hr class="rule">
+    <p class="field-text">Multi-year coastal fieldwork across Bangladesh: Sundarbans mangrove system · Cox's Bazar, Inani Beach, Patenga · Karnaphuly River Estuary · Chittagong Port Hydrography Department · Saint Martin's, Sonadia &amp; Maheshkhali Islands · Bangladesh Oceanographic Research Institute (BORI) — six specialist units.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">09</span><h2>Teaching &amp; Mentoring</h2></div>
+    <hr class="rule">
+    <ul class="bullets">
+      <li>Private academic tutoring for secondary and higher-secondary level students, sustained alongside undergraduate and graduate studies</li>
+      <li>Provided peer-level support to two lab colleagues on thesis and term-paper writing, data analysis review, and manuscript feedback</li>
+    </ul>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">10</span><h2>Volunteer &amp; Community Engagement</h2></div>
+    <hr class="rule">
+    <ul class="bullets">
+      <li>Member, Octophin Environmental Organisation (2020–present) — coastal conservation and community outreach</li>
+      <li>Marine debris removal volunteer, Saint Martin's Island</li>
+    </ul>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">Let's talk research.</div>
+    <div><a href="mailto:tansu.ahmed.ocean.fmsf@gmail.com">tansu.ahmed.ocean.fmsf@gmail.com</a></div>
+    <div style="margin-top:8px;display:flex;gap:18px;">
+      <a href="https://www.linkedin.com/in/tansu-ahmed" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/TansuAhmed" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p style="margin-top:18px;color:#7E97A0;">Chattogram, Bangladesh</p>
+  </div>
+</footer>
+
+</body>
+</html>
