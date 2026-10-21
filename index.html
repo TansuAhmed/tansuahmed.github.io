@@ -170,7 +170,8 @@
 
   /* about */
   .about{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;align-items:start;}
-  .about p{font-size:16.5px;color:var(--body);margin:0;}
+  .about-text p{font-size:16.5px;color:var(--body);margin:0 0 14px;}
+  .about-text p:last-child{margin-bottom:0;}
   .interests{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
   .interests li{
     font-size:14.5px;font-weight:500;color:var(--heading);
@@ -283,7 +284,7 @@
   <div class="wrap">
     <p class="eyebrow">Oceanography · Coastal modelling · Satellite remote sensing</p>
     <h1 class="name">Tansu Ahmed</h1>
-    <p class="tagline">M.S. graduate in Oceanography from the University of Chittagong. I work with satellite data and a validated Delft3D-FM tidal model of the Bangladesh coast, and want to combine them to map coastal flooding for early warning.</p>
+    <p class="tagline">M.S. graduate in Oceanography, working on satellite observation and tidal modelling of the Bangladesh coast.</p>
     <p class="location">Chattogram, Bangladesh · NST Research Fellow 2024 to 2025</p>
     <div class="profiles">
       <a class="primary" href="mailto:tansu.ahmed.ocean.fmsf@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
@@ -312,7 +313,13 @@
   <div class="wrap">
     <h2>About</h2>
     <div class="about">
-      <p>M.S. graduate in Oceanography from the University of Chittagong, Bangladesh. I work with satellite and in-situ data in ArcGIS Pro, QGIS and ENVI at the Coastal Ocean Observation and Prediction Laboratory, mapping turbidity, water quality and coastal habitats. For my M.S. thesis I set up the Delft3D-FM model of the Bangladesh coast of the Bay of Bengal and validated it against tide gauge data from Chittagong Port and the Sundarbans coastal area. I want to combine these two strands, satellite observation and a validated tidal model, to map coastal flooding for early warning. NST Research Fellow 2024 to 2025.</p>
+      <div class="about-text">
+        <p>I study the coast of Bangladesh, a low-lying delta exposed to tidal flooding, erosion and climate change. My work uses two tools: satellite observation and numerical modelling.</p>
+        <p>Since January 2020 I have been a Research Assistant at the Coastal Ocean Observation and Prediction Laboratory, University of Chittagong. I process satellite and in-situ data in ArcGIS Pro, QGIS and ENVI to map turbidity, water quality and coastal habitats.</p>
+        <p>For my M.S. thesis, funded by an NST Research Fellowship, I set up the Delft3D-FM model of the Bangladesh coast of the Bay of Bengal and validated it against tide gauge data from Chittagong Port and the Sundarbans coastal area.</p>
+        <p>I am also a researcher at the Hydro-Climate and Ocean Centre (HCO), where I am lead applicant for an R&amp;D project on CDOM and salinity along the Karnaphuli estuary, submitted to the Ministry of Science and Technology (under review).</p>
+        <p>Next, I want to bring satellite observation and a validated tidal model together to map coastal flooding for early warning.</p>
+      </div>
       <div>
         <p class="label">Research interests</p>
         <ul class="interests">
@@ -346,8 +353,11 @@
     <div class="entry">
       <div class="entry-date">Ongoing</div>
       <div class="entry-body">
-        <p class="entry-title">Researcher <span class="tag">Under review</span></p>
-        <div class="entry-sub">Hydro-Climate and Ocean Centre (HCO), remote</div>
+        <p class="entry-title">Researcher</p>
+        <div class="entry-sub">
+          <span><a class="inline-link" href="https://www.hco-centre.org/" target="_blank" rel="noopener">Hydro-Climate and Ocean Centre (HCO)</a>, Dhaka, Bangladesh (remote)</span>
+          <span>An independent research and consultancy institute in hydro-climate and ocean sciences</span>
+        </div>
         <ul class="bullets">
           <li>Lead applicant for an R&amp;D project submitted through HCO to the Ministry of Science and Technology, Government of Bangladesh (under review): <em>“Colored Dissolved Organic Matter (CDOM)-Salinity Dynamics Along the Karnaphuli Estuary-Chattogram Coastal Gradient: Influence of Freshwater-Seawater Mixing.”</em> Six stations along a river-to-coast transect in post-monsoon and pre-monsoon campaigns; spectrophotometric CDOM absorption at 443 nm, CDOM-salinity regression and GIS mapping.</li>
         </ul>
@@ -464,7 +474,7 @@
 
     <p class="label subhead">Mentoring and volunteering</p>
     <ul class="bullets">
-      <li>Peer support to two lab colleagues on thesis and term paper writing, data analysis review and manuscript feedback.</li>
+      <li>Peer support to lab colleagues on thesis and term paper writing, data analysis review and manuscript feedback.</li>
       <li>Member, Octophin Environmental Organisation, 2020 to present: coastal conservation and community outreach.</li>
     </ul>
   </div>
